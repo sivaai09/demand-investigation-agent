@@ -1,4 +1,4 @@
-package com.chandana.stockoutagent;
+package dev.demandagent;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,14 +16,19 @@ class Main {
         CREATE TABLE sales AS
         SELECT * FROM read_csv_auto('data/sales_train_evaluation.csv')
     """);
+            stmt.execute("""
+        CREATE TABLE calendar AS SELECT * FROM read_csv_auto('data/calendar.csv')
+    """);
 
             // STEP 2: reshape that table from wide to long, for one item-store pair
             var rs = stmt.executeQuery("""
-            SELECT * FROM sales UNPIVOT (units FOR day IN (COLUMNS(c -> c LIKE 'd\\_%' ESCAPE '\\')))
-                                WHERE item_id = 'FOODS_3_090' AND store_id = 'CA_1'
-                                ORDER BY day
-                                LIMIT 30
+                SELECT * FROM sales UNPIVOT (units FOR day IN (COLUMNS(c -> c LIKE 'd\\_%' ESCAPE '\\')))
+                                    WHERE item_id = 'FOODS_3_090' AND store_id = 'CA_1'
+                                    ORDER BY day
+                                    LIMIT 30
     """);
+
+
 
             while (rs.next()) {
                 System.out.println(rs.getString("day") + " -> " + rs.getInt("units"));
