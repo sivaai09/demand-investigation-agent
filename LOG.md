@@ -22,3 +22,13 @@
 - First run 3/5 - 2 misses were eval-design bugs (picked confounded windows: real Easter event, a real pre-existing zero-run), not model bugs. Fixed by finding event-free/zero-free windows via query.
 - Second run 4/5 - remaining miss (store-wide dip) looks like a genuine model limitation: a uniform scale-down is indistinguishable from normal fluctuation without a comparison baseline. Matches week-3's planned compare_to_category/store tool - good early signal that tool is necessary, not just nice-to-have.
 - Next: week2 starts with understanding how to get price history, get calendar events
+- Held off on publishing week1 post
+
+## 2026-09-28
+
+- Reviewed week one changes
+- Next we will start implementing a real investigation loop, adding get_price_history, get_calendar_events --> these methods chain atleast two tool calls
+
+## 2026-09-29
+
+- Added get_calendar_events tool call to fetch two event types between dates
