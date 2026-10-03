@@ -13,22 +13,25 @@ import org.springframework.stereotype.Component;
 class SalesDemoRunner implements CommandLineRunner {
 
     private final ChatClient.Builder builder;
-    private final ToolCallback getSalesTool;
 
-    SalesDemoRunner(ChatClient.Builder builder, ToolCallback getSalesTool) {
+    private SalesTools salesTools;
+
+
+
+    SalesDemoRunner(ChatClient.Builder builder, SalesTools salesTools) {
         this.builder = builder;
-        this.getSalesTool = getSalesTool;
+        this.salesTools = salesTools;
     }
 
     @Override
     public void run(String... args) {
         String question = args.length > 0
                 ? String.join(" ", args)
-                : "How did item FOODS_3_090 sell at store CA_1 in March 2015? Anything unusual?";
+                : "Why did FOODS_3_090 at CA_1 sell 0 units on 2012-12-25?";
 
         String answer = builder.build().prompt()
                 .user(question)
-                .toolCallbacks(getSalesTool)
+                .tools(salesTools)
                 .call()
                 .content();
 

@@ -1,6 +1,5 @@
 package dev.demandagent.explore;
 
-import dev.demandagent.App;
 import dev.demandagent.DuckDbConfig;
 import org.junit.jupiter.api.Tag;
 

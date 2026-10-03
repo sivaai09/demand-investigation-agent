@@ -9,8 +9,8 @@ class GetSalesTest {
     @Test
     void returnsOneRowPerDayInRange() throws Exception {
         try (var conn = new DuckDbConfig().duckDbConnection()) {
-            var rows = App.querySales(conn,
-                    new App.GetSalesRequest("FOODS_3_090", "CA_1", "2015-03-01", "2015-03-30"));
+            var rows = SalesTools.querySales(conn,
+                    new SalesTools.GetSalesRequest("FOODS_3_090", "CA_1", "2015-03-01", "2015-03-30"));
 
             assertEquals(30, rows.size());
             assertEquals("2015-03-01", rows.get(0).date());
@@ -24,8 +24,8 @@ class GetSalesTest {
     @Test
     void capsRowsForHugeRange() throws Exception {
         try (var conn = new DuckDbConfig().duckDbConnection()) {
-            var rows = App.querySales(conn,
-                    new App.GetSalesRequest("FOODS_3_090", "CA_1", "2011-01-29", "2016-05-22"));
+            var rows = SalesTools.querySales(conn,
+                    new SalesTools.GetSalesRequest("FOODS_3_090", "CA_1", "2011-01-29", "2016-05-22"));
             assertEquals(App.MAX_ROWS, rows.size());
         }
     }

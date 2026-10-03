@@ -1,7 +1,6 @@
 package dev.demandagent.eval;
 
-import dev.demandagent.App.DailySales;
-import dev.demandagent.App.WeeklyPrice;
+import dev.demandagent.SalesTools;
 
 import java.util.List;
 
@@ -22,14 +21,14 @@ public record AnomalyCase(
         String store,
         String from,
         String to,
-        List<DailySales> series,   // the (possibly injected) daily rows the agent will see
+        List<SalesTools.DailySales> series,   // the (possibly injected) daily rows the agent will see
         String trueCause,          // ground truth, set by whoever builds the case
-        List<WeeklyPrice> prices   // weekly prices, empty for cases that don't need them
+        List<SalesTools.WeeklyPrice> prices   // weekly prices, empty for cases that don't need them
 ) {
     // Convenience constructor for cases that don't involve price - keeps the
     // 4 earlier cases' call sites unchanged.
     public AnomalyCase(String name, String item, String store, String from, String to,
-                        List<DailySales> series, String trueCause) {
+                       List<SalesTools.DailySales> series, String trueCause) {
         this(name, item, store, from, to, series, trueCause, List.of());
     }
 }
